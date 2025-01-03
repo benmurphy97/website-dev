@@ -5,4 +5,4 @@ app.db
 .gitignore
 migrations
 config.py
-app/__pycache__/*
+app/__pycache__
