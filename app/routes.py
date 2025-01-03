@@ -14,7 +14,7 @@ from urllib.parse import urlsplit
 
 @app.route('/')
 @app.route('/index')
-@login_required
+# @login_required
 def index():
     # user = {'username': 'Aoife'}
     posts = [
@@ -65,3 +65,7 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/league_projections')
+def league_projections():
+        return render_template('league_projections.html', title='Home Page')
