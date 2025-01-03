@@ -1,0 +1,6 @@
+/.flaskenv
+/__pycache__
+/app.db
+/config.py
+/migrations
+/website-env
