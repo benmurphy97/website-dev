@@ -3,4 +3,6 @@
 website-env
 app.db
 .gitignore
-migrations/*
+migrations
+config.py
+app/__pycache__/*
