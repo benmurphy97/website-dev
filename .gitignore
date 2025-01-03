@@ -1,6 +1,6 @@
-/.flaskenv
-/__pycache__
-/app.db
-/config.py
-/migrations
-/website-env
+
+**/__pycache__/
+website-env
+app.db
+.gitignore
+migrations/*
