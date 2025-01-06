@@ -11,6 +11,14 @@ from app.models import User
 
 from urllib.parse import urlsplit
 
+import base64
+from io import BytesIO
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import pandas as pd
+
 
 @app.route('/')
 @app.route('/index')
@@ -66,6 +74,27 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route('/league_projections')
+@app.route('/league_projections', methods=['GET'])
 def league_projections():
-        return render_template('league_projections.html', title='Home Page')
+    # load in data from csv
+
+    return render_template('league_projections.html', title='Projections Page')
+
+
+@app.route('/league_projections_output', methods=['GET', 'POST'])
+def league_projections_output():
+    league = request.form.get('league')
+    n_simulations = request.form.get('n_simulations')
+
+
+
+    df = pd.read_csv('app/urc_predicted_finish.csv')
+    df.fillna(0, inplace=True)
+
+    # https://stackoverflow.com/questions/52644035/how-to-show-a-pandas-dataframe-into-a-existing-flask-html-table
+ 
+    return render_template("league_projections_output.html", 
+                           column_names=df.columns.values, 
+                           row_data=list(df.values.tolist()),
+                            link_column="Patient ID", zip=zip
+                           )

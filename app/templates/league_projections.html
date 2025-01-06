@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-   Hello World
+   <h1>Enter league table projection parameters</h1>
+
+   <form method="POST" action="{{ url_for('league_projections_output') }}" id="foo">
+    <label for="league">League:</label>
+    <input type="text" id="league" name="league" value="URC"><br><br>
+    <label for="simulations">Number of simulations:</label>
+    <input type="text" id="n_simulations" name="n_simulations" value="100"><br><br>
+    <input type="submit" value="Generate">
+  </form>
+
+   <!-- put in table here, data was passed in from function from csv -->
 {% endblock %}

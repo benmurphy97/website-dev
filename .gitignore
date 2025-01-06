@@ -6,3 +6,4 @@ app.db
 migrations
 config.py
 app/__pycache__
+.DS_Store
