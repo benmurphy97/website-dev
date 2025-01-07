@@ -86,15 +86,35 @@ def league_projections_output():
     league = request.form.get('league')
     n_simulations = request.form.get('n_simulations')
 
-
-
     df = pd.read_csv('app/urc_predicted_finish.csv')
     df.fillna(0, inplace=True)
 
+    df[df.select_dtypes(include=['number']).columns] *= 100
+
     # https://stackoverflow.com/questions/52644035/how-to-show-a-pandas-dataframe-into-a-existing-flask-html-table
  
+    row_data=list(round(df,2).values.tolist())
+
+
     return render_template("league_projections_output.html", 
                            column_names=df.columns.values, 
-                           row_data=list(df.values.tolist()),
+                           row_data=row_data,
                             link_column="Patient ID", zip=zip
                            )
+
+
+
+#background process happening without any refreshing
+@app.route('/background_process_test')
+def background_process_test():
+    print ("Hello")
+    return ("nothing")
+
+@app.route('/match_scraping', methods=['GET'])
+def match_scraping():
+
+    # get things from database
+    # most recent date of match in database
+
+
+    return render_template('match_data_scraping.html', title='Match Scraping')

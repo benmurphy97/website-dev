@@ -4,6 +4,50 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 
+<!-- https://codehim.com/html5-css3/html-table-row-color-based-on-value/ -->
+<!-- <script> 
+$(document).ready(function(){
+        Array.max = function(array){
+        return Math.max.apply(Math,array);
+    };
+ 
+    var counts= $('.heat-map tbody td').not('.stats-title').map(function() {
+        return parseInt($(this).text());
+    }).get();
+	
+    var max = Array.max(counts);
+    console.log(counts);
+	 console.log(max);
+    n = 100; 
+ 
+    xr = 255; // Red value
+    xg = 255; // Green value
+    xb = 255; // Blue value
+ 
+  //User Defined Color
+    yr = 143; // Red value
+    yg =72; // Green value
+    yb = 117; // Blue value
+ 
+  
+    $('.heat-map tbody td').not('.stats-title').each(function(){
+        var val = parseInt($(this).text());
+		console.log(val);
+        var pos = parseInt((Math.round((val/max)*80)).toFixed(0));
+		console.log(pos);
+        red = parseInt((xr + (( pos * (yr - xr)) / (n-15))).toFixed(0));
+		console.log(red);
+        green = parseInt((xg + (( pos * (yg - xg)) / (n-15))).toFixed(0));
+		console.log(green);
+        blue = parseInt((xb + (( pos * (yb - xb)) / (n-15))).toFixed(0));
+		console.log(blue);
+        clr = 'rgb('+red+','+green+','+blue+')';
+		console.log(clr);
+		$(this).css({backgroundColor:clr});
+    });
+});
+</script> -->
+
    <h1>End of Season</h1>
 
    <!-- {% for table in tables %}
