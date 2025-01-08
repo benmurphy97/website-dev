@@ -5,7 +5,8 @@ CREATE TABLE match_results (
   home_team VARCHAR(20),
   away_team VARCHAR(20),
   home_score INTEGER,
-  away_score INTEGER
+  away_score INTEGER,
+
 );
 
 
