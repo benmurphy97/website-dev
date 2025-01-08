@@ -19,6 +19,8 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 
+from data_scraping.match_scraper import get_base_url, get_links_df, scrape_matches_from_links
+from app.data_writer import write_to_postgres_table
 
 @app.route('/')
 @app.route('/index')
@@ -99,16 +101,52 @@ def league_projections_output():
     return render_template("league_projections_output.html", 
                            column_names=df.columns.values, 
                            row_data=row_data,
-                            link_column="Patient ID", zip=zip
+                           link_column="Patient ID", 
+                           zip=zip
                            )
 
 
 
+
 #background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    print ("Hello")
-    return ("nothing")
+@app.route('/scrape_match_data', methods=['GET', 'POST'])
+def scrape_match_data():
+
+    # get values passed from form
+    league = request.form.get('league')
+    season = request.form.get('season')
+    print (f"Scraping running for {league} season: {season}")
+
+    # base_url = get_base_url(league, season)
+    # print(base_url)
+
+    # links_df, scores = get_links_df(base_url)
+    # print(links_df.head())
+
+    # matches_df = scrape_matches_from_links(links_df, scores)
+    # print(matches_df.head())
+
+    # matches_df.to_csv('matches.csv')
+    print("loading data from csv")
+    df = pd.read_csv('matches.csv')
+    df = df.drop(columns=['Unnamed: 0'])
+    print(df.dtypes)
+
+    df['league'] = league
+    df['season'] = season
+
+    df['match_date_dt'] = pd.to_datetime(df['match_date'])
+    df['match_date_str'] = df['match_date_dt'].dt.strftime("%Y-%m-%d")
+
+    cols_to_write = ['match_date_str', 'season', 'league', 'home_team', 'away_team', 'match_result']
+    print(df[cols_to_write].head())
+
+
+    write_to_postgres_table(df[cols_to_write], table='matches_raw')
+
+
+    return render_template('match_data_scraping.html', title='Match Scraping')
+
 
 @app.route('/match_scraping', methods=['GET'])
 def match_scraping():
