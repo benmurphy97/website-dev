@@ -8,9 +8,9 @@
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type=text/javascript>
             $(function() {
-            $('a#test').on('click', function(e) {
+            $('a#foo').on('click', function(e) { // when click submit on form - dont refresh page but run background
                 e.preventDefault()
-                $.getJSON('/background_process_test',
+                $.getJSON('/',
                     function(data) {
                 //do nothing
                 });
@@ -26,8 +26,31 @@
             <form>
                 <a href=# id=test><button class='btn btn-default'>Scrape</button></a>
             </form>
-
     </div>
+
+
+   <form method="POST" action="{{ url_for('scrape_match_data') }}" id="foo">
+
+    <label for="league">League:</label>
+    <input list="leagues" name="league" id="league" value="URC">
+    <datalist id="leagues">
+        <option value="URC">
+        <option value="TOP-14">
+        <option value="PREMIERSHIP">
+        <option value="CHAMPIONS-CUP">
+    </datalist>
+    <br>
+    <label for="season">Season:</label>
+    <input list="seasons" name="season" id="season" value="2025">
+    <datalist id="seasons">
+        <option value="2025">
+        <option value="2024">
+        <option value="2023">
+        <option value="2022">
+    </datalist>
+    <br>
+    <input type="submit" value="Generate" id="scrape-submit">
+  </form>
 
    <!-- put in table here, data was passed in from function from csv -->
 {% endblock %}
